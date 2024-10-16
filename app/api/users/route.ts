@@ -1,19 +1,8 @@
 import bcrypt from 'bcryptjs'
-// import { sql } from '@vercel/postgres'
 import { NextRequest } from 'next/server'
 
 import { checkAuth, apiError, successResponse } from '@/lib/api'
-
 import prisma from '@/lib/prisma'
-
-/*
-CREATE TABLE farmers_users (
-  id serial NOT NULL,
-  email varchar(90) NOT NULL,
-  password varchar(60) NOT NULL,
-  PRIMARY KEY (id)s
-);
-*/
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl
@@ -26,23 +15,21 @@ export async function GET(request: NextRequest) {
   if (!email) return apiError({ message: 'Email is not provided' })
   if (!password) return apiError({ message: 'Password is not provided' })
 
-  const users = await prisma.user.findMany({
+  const user = await prisma.user.findUnique({
     where: { email },
   })
 
-  const item = users.length ? users[0] : null
-
-  if (!item) {
+  if (!user) {
     return apiError({ message: 'User is not found' })
   }
 
-  const checkPassword = await bcrypt.compare(password, item.password)
+  const checkPassword = await bcrypt.compare(password, user.password)
 
   if (!checkPassword) {
     return apiError({ message: 'Password is wrong', field: 'password' })
   }
 
-  return successResponse({ id: item.id })
+  return successResponse({ id: user.id })
 }
 
 // export async function POST(request: NextRequest) {

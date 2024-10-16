@@ -26,6 +26,7 @@
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "humps": "^2.0.1",
     "jose": "^5.9.4",
     "lodash.throttle": "^4.1.1",
     "lucide-react": "^0.453.0",
@@ -40,6 +41,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
+    "@types/humps": "^2.0.6",
     "@types/lodash.throttle": "^4.1.9",
     "@types/node": "^20",
     "@types/react": "^18",

@@ -1,38 +1,44 @@
-// import { sql } from '@vercel/postgres'
-// import { NextRequest } from 'next/server'
-// import humps from 'humps'
+import { NextRequest } from 'next/server'
+import humps from 'humps'
 
-// import { apiError, successResponse, checkAuth } from '@/lib/api'
+import { apiError, successResponse } from '@/lib/api'
+import prisma from '@/lib/prisma'
 
-// export async function GET(
-//   _: NextRequest,
-//   params: {
-//     params: {
-//       id: string
-//     }
-//   }
-// ) {
-//   const { id } = params.params
+export async function GET(
+  _: NextRequest,
+  params: {
+    params: {
+      id: string
+    }
+  }
+) {
+  const { id } = params.params
 
-//   if (!id) {
-//     return apiError({ message: 'Id is not correct' })
-//   }
+  if (!id) {
+    return apiError({ message: 'Id is not correct' })
+  }
 
-//   const client = await sql.connect()
-//   const { rows } =
-//     await client.sql`SELECT * from scraps_users WHERE id = ${id};`
-//   client.release()
+  const user = await prisma.user.findUnique({
+    where: { id },
+  })
 
-//   const item = rows.length ? rows[0] : null
+  if (!user) {
+    return apiError({ message: 'User is not found' })
+  }
 
-//   if (item) {
-//     delete item.password
-//   }
+  // Create a new object without the password field
+  const { password, ...userWithoutPassword } = user // eslint-disable-line @typescript-eslint/no-unused-vars
+  const fixedItem = humps.camelizeKeys(userWithoutPassword)
 
-//   const fixedItem = humps.camelizeKeys(item)
-
-//   return successResponse(fixedItem)
-// }
+  return successResponse(
+    fixedItem as {
+      id: string
+      email: string
+      firstName: string
+      lastName: string
+    }
+  )
+}
 
 // export async function PUT(request: NextRequest) {
 //   let data: {
