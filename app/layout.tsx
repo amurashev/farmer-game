@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 
+import UserDataProvider from '@/contexts/user-data'
+
 import './globals.css' // eslint-disable-line import/extensions
 
 const geistSans = localFont({
@@ -24,13 +26,22 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const user = {
+    id: '123',
+    email: 'test@example.com',
+    firstName: 'John',
+    lastName: 'Doe',
+  }
+
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-background antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <UserDataProvider user={user}>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} bg-background antialiased`}
+        >
+          {children}
+        </body>
+      </html>
+    </UserDataProvider>
   )
 }
