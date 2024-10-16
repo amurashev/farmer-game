@@ -1,0 +1,4 @@
+.eslintrc.js
+.next
+node_modules
+internals
