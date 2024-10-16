@@ -7,8 +7,8 @@ export const useMousePosition = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
     const setFromEvent = (e: any) => {
-      // console.warn(e)
       setPosition({ x: e.pageX, y: e.pageY })
     }
     window.addEventListener('mousemove', throttle(setFromEvent, 150))

@@ -1,5 +1,6 @@
 import { Point } from '../types/grid'
 
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 const doLogs = (...params: any) => false && console.warn(...params)
 
 export type SegmentsData = {

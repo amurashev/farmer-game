@@ -1,7 +1,7 @@
 'use client'
 
 // Inspired by react-hot-toast library
-/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable @typescript-eslint/no-use-before-define, @typescript-eslint/no-unused-vars */
 import * as React from 'react'
 
 import * as ToastPrimitives from '@radix-ui/react-toast'

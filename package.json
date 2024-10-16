@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier '{app,components,pages,lib,constants}/**/*.{js,ts,tsx}' --write",
+    "type-check": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.2",
@@ -33,13 +35,17 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@types/lodash.throttle": "^4.1.9",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "14.2.15",
+    "eslint-config-airbnb-typescript-prettier": "^5.0.0",
+    "eslint-config-next": "^14.2.15",
+    "eslint-plugin-prettier": "^5.2.1",
     "postcss": "^8",
+    "prettier": "^3.3.3",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5.6.3"
   }
 }
